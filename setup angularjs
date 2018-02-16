@@ -1,0 +1,195 @@
+
+Microsofts Internet Information Services (IIS)
+1.	Windows IIS must be enabled 1.1. In Windows, access the Control Panel and click Add or Remove Programs. 1.2. 
+In the Add or Remove Programs window, click Add/Remove Windows Components. 1.3. Select the 
+Internet Information Services (IIS) check box, click Next, then click Finish. 1.4. Copy and extract the 
+Angular Application Zip file to the webserver root directory: C:\inetpub\wwwroot
+2.	The Angular application can now be accessed using the following URL: http://localhost:8080
+
+Apache Tomcat Web Server
+1.	Installing Apache Tomcat version 8 1.1. Download and install Apache Tomcat from: https://tomcat.apache.org/ 1.2. 
+Copy and extract the Angular Application Zip file to the webserver 
+root directory C:\Program Files\Apache Software Foundation\Tomcat 7.0\webapps
+2.	The Angular Application can now be accessed using the following URL: http://localhost:8080
+
+
+
+
+How to run Angular app on xampp server?
+You can write Angular2 app just using Angular2 packages without using node or mamp or xampp and host that app. Ref
+According to the above reference I created my app using angular 2 - cli after that I made a little change in my root 
+directory index.html file which is:
+<base href="/">
+into
+<base href="./">
+and build my app using:
+ng build --prod
+copy dist folder and paste it in my xampp htdocs folder and access the site using:
+localhost:8080/dist/
+
+
+
+Set up AngularJs in ASP.NET MVC 5 Application
+
+Step # 1 – Create new Project.
+Go to File => New => Project. It will show new Project popup.
+Select ASP.NET Web application(from middle pane) => Enter the name of Application (E.g. AngularJsDemoSetup) =>   click Ok button. It will show a new ASP.NET Project popup.
+Select MVC option => Check the checkbox under the “Add folder and core references for:” => then click Ok button.
+Step # 2 – Add AngularJs library to the project.
+Click here to get AngularJs library. You will see there two options
+•	View on GitHub: Click on this button to go to GitHub and get all the latest scripts.
+      OR
+•	Download AngularJs 1: Click on this button to download AngularJs library.
+Now go to solution explorer => Right click on the Scripts folder => Add => Existing Item => Select .Js files (from where you have downloaded AngularJs library ) => Add.
+Note:- You can also add AngularJs library from NuGet Package manager console. Here I have added AngularJs library from NuGet Package Manger.
+Step # 3 – Add Angular bundle to the project.
+Go to solution explorer => click on App_Start folder => Double click on BundleConfig.cs file => Add the below code to this BundleConfig.cs file.
+
+bundles.Add(new ScriptBundle("~/bundles/angular").Include(
+
+"~/Scripts/angular.js"));
+
+Step # 4 – Add New js file.
+Go to solution explorer => Right click on the Scripts => Add => New Item => select JavaScript File (Under Web folder) => enter the name (E.g. MyApp.js) => click Add button. It will add new MyApp.js file under the Scripts folder.
+Now write the below code to MyApp.js file.
+
+(function () {
+
+//Module 
+
+var app = angular.module('MyApp', []); 
+
+// Controller
+
+app.controller('MyController', function ($scope) {
+
+$scope.Message = "Congratulation you have created your first application using AngularJs";
+
+});
+
+})();
+angular.module: It defines an application. It is the container of the different part of the application. Such as Controller, Filters, Services, Directives and etc.
+angular.Controller: It controls the data of AngularJs application. It is the business logic behind the application. It contains all the methods and variable that we use in our view. Controllers are the regular javaScript objects.
+$Scope: Scope is the binding part between the view and the AngularJs controller. It uses angular’s two-way binding to bind the data between View and controller. It is available for both View and the controller.
+Step # 5 – Modify with _Layout.cshtml page.
+Now we will modify _Layout.cshtml page to bind with AngularJS. Modify the _Layout.cshtml page with the below code.
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>@ViewBag.Title - My ASP.NET Application</title>
+
+@Styles.Render("~/Content/css")
+
+@Scripts.Render("~/bundles/modernizr")
+
+</head>
+
+@* Add ng-app="MyApp" means <body> element is the owner of AngularJs Application *@
+
+<body ng-app="MyApp" >
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+
+<div class="container">
+
+<div class="navbar-header">
+
+<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+
+<span class="icon-bar"></span>
+
+<span class="icon-bar"></span>
+
+<span class="icon-bar"></span>
+
+</button>
+
+@Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+
+</div>
+
+<div class="navbar-collapse collapse">
+
+<ul class="nav navbar-nav">
+
+<li>@Html.ActionLink("Home", "Index", "Home")</li>
+
+<li>@Html.ActionLink("About", "About", "Home")</li>
+
+<li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+
+</ul>
+
+@Html.Partial("_LoginPartial")
+
+</div>
+
+</div>
+
+</div>
+
+<div class="container body-content">
+
+@RenderBody()
+
+<hr />
+
+<footer>
+
+<p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+
+</footer>
+
+</div>
+
+
+
+@Scripts.Render("~/bundles/jquery")
+
+@* Add Angular Library Here *@
+
+@Scripts.Render("~/bundles/angular")
+
+@* Add MyApp.js here *@
+
+<script src="~/Scripts/MyApp.js"></script>
+
+@RenderSection("scripts", required: false)
+
+</body>
+
+</html>
+ng-App: Here ng-app means the <Body> element is the owner of AngularJs application.
+Step # 6 – Add controller
+Now add a Controller to your project.
+Go to solution explorer => right click on the Controller folder => Add => Controller. It will show a new “Add Scaffold” popup.
+Select MVC 5 Controller – Empty => then click Add button.
+Enter the name of controller (E.g. StudentController) => click Ok.
+Step # 7 – Add view for StudentController Index action method.
+Now right click on the Index action method => Add View … => Enter View name in the name field (Same as Action Method) => Click Add button.
+Add the following code to Index View file.
+
+@{
+
+ViewBag.Title = "Index";
+
+Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<h2>Setup of AngularJs in ASP.NET MVC 5 </h2>
+
+<div ng-controller="MyController">
+
+{{Message}}
+
+</div>
+Now run your application with this URL “http://localhost:55513/student/index”  and you will get the following output page.
